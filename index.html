@@ -15,6 +15,10 @@ h1,h2{font-family:Charter,"Iowan Old Style",Georgia,serif;font-weight:600;line-h
 h1{font-size:clamp(1.9rem,5vw,2.6rem)}
 .jab{color:var(--acc);font-weight:600;margin:.4rem 0 0}
 .ringkas{color:var(--mute);max-width:62ch;margin:.8rem 0 0}
+.profil{display:flex;gap:1.5rem;align-items:flex-start}
+.foto{flex:none;width:9rem;height:9rem;border-radius:50%;object-fit:cover;object-position:center top;border:3px solid var(--acc-bg);background:var(--acc-bg)}
+.inisial{flex:none;width:9rem;height:9rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--acc-bg);color:var(--acc);font:600 2.6rem Charter,Georgia,serif}
+@media(max-width:560px){.profil{flex-direction:column;align-items:flex-start;gap:1rem}.foto,.inisial{width:7rem;height:7rem}}
 .tautan{display:flex;gap:1rem;flex-wrap:wrap;margin:1rem 0 0;padding:0;list-style:none}
 a{color:var(--acc)}
 .ringkasan{display:flex;gap:2rem;flex-wrap:wrap;margin:2rem 0 1.5rem;padding:1rem 0;border-block:1px solid var(--line)}
@@ -43,11 +47,14 @@ footer{margin-top:3rem;color:var(--mute);font-size:.85rem}
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1 id="nama"></h1>
-  <p class="jab" id="jabatan"></p>
-  <p class="ringkas" id="ringkas"></p>
-  <ul class="tautan" id="tautan"></ul>
+<header class="profil">
+  <div id="fotoBox"></div>
+  <div>
+    <h1 id="nama"></h1>
+    <p class="jab" id="jabatan"></p>
+    <p class="ringkas" id="ringkas"></p>
+    <ul class="tautan" id="tautan"></ul>
+  </div>
 </header>
 
 <section class="ringkasan" id="ringkasan" aria-label="Ringkasan"></section>
@@ -78,6 +85,9 @@ const PROFIL = {
   tautan: [
     // { label: "Folder bukti (Google Drive)", url: "https://drive.google.com/..." },
   ],
+  /* Foto profil: unggah file foto ke repositori, lalu tulis namanya di sini.
+     Contoh: "foto-profil.jpg". Biarkan "" jika belum ada (akan tampil inisial). */
+  foto: "foto-profil.jpg",
   diperbarui: "November 2026"
 };
 
@@ -181,6 +191,18 @@ const tahunDari = k => k.tanggal ? k.tanggal.slice(0,4) : "Tanggal belum diisi";
 
 document.title = `Portofolio ${PROFIL.nama}`;
 $("nama").textContent = PROFIL.nama;
+(function(){
+  const box = $("fotoBox");
+  const inisial = PROFIL.nama.replace(/,.*$/, "").split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0].toUpperCase()).join("");
+  const tampilInisial = () => { box.innerHTML = `<div class="inisial" aria-hidden="true">${esc(inisial)}</div>`; };
+  if(!PROFIL.foto){ tampilInisial(); return; }
+  const img = new Image();
+  img.className = "foto";
+  img.alt = `Foto ${PROFIL.nama}`;
+  img.onerror = tampilInisial;
+  img.src = PROFIL.foto;
+  box.appendChild(img);
+})();
 $("jabatan").textContent = `${PROFIL.jabatan}, ${PROFIL.instansi}`;
 $("ringkas").textContent = PROFIL.ringkas;
 $("update").textContent = PROFIL.diperbarui;
