@@ -78,7 +78,7 @@ const PROFIL = {
   tautan: [
     // { label: "Folder bukti (Google Drive)", url: "https://drive.google.com/..." },
   ],
-  diperbarui: "September 2026"
+  diperbarui: "November 2026"
 };
 
 /* Daftar unsur kegiatan. Sesuaikan namanya dengan format portofolio resmi LAN. */
@@ -95,13 +95,14 @@ const UNSUR = [
 const P = "Pendidikan dan Pelatihan", M = "Pelaksanaan Pembelajaran", N = "Kegiatan Penunjang";
 
 /* Cara menambah kegiatan: salin satu baris K(...) lalu ganti isinya.
-   K( tanggal, unsur, judul, peran, jp, tanggalSelesai )
+   K( tanggal, unsur, judul, peran, jp, tanggalSelesai, keterangan )
    - tanggal : "TAHUN-BULAN-TANGGAL", contoh "2026-10-15". Kosongkan ("") jika belum tahu.
    - peran   : "Peserta", "Pengajar", dst. Kosongkan ("") jika belum diisi.
    - jp      : angka jam pelajaran, 0 jika tidak ada.
-   - tanggalSelesai : isi hanya jika kegiatan berlangsung beberapa hari.
+   - tanggalSelesai : isi hanya jika kegiatan berlangsung beberapa hari, jika tidak tulis "".
+   - keterangan : opsional, misalnya nama penyelenggara.
    Setiap baris diakhiri koma. Judul memakai tanda kutip lurus di awal dan akhir saja. */
-const K = (tanggal, unsur, judul, peran, jp, sampai) => ({ tanggal, sampai, unsur, judul, peran, jp, deskripsi: "", bukti: [] });
+const K = (tanggal, unsur, judul, peran, jp, sampai, deskripsi) => ({ tanggal, sampai, unsur, judul, peran, jp, deskripsi: deskripsi || "", bukti: [] });
 
 const KEGIATAN = [
   K("2025-05-15", P, "Workshop Penulisan Karya Tulis Ilmiah (KTI) Asosiasi Profesi Widyaiswara Indonesia", "Peserta", 5),
@@ -159,7 +160,14 @@ const KEGIATAN = [
   K("2026-04-24", N, "Webinar Sharing Session Kemnaker Corpu Learning Series 3: “Dapur Kompetensi Masa Depan: Pengembangan Vocational Training Center Pariwisata”", "Peserta", 1),
   K("2026-05-12", P, "MOOC Pelatihan Public Speaking (Self Learning)", "Peserta", 15, "2026-05-22"),
   K("2026-01-15", N, "Webinar ASN Belajar Seri 1 Start with Smart - From Learning to Impact: “Menata Arah, Menguatkan Langkah Mengemban Amanah”", "Peserta", 3),
-  K("2026-02-12", N, "Webinar ASN Belajar Seri 5 Tahun 2026 “From Skill to Recognition: Sertifikasi Profesi ASN - Kompetensi Diakui, Kinerja Terbukti”", "Peserta", 3)
+  K("2026-02-12", N, "Webinar ASN Belajar Seri 5 Tahun 2026 “From Skill to Recognition: Sertifikasi Profesi ASN - Kompetensi Diakui, Kinerja Terbukti”", "Peserta", 3),
+  K("2025-12-29", P, "Pelatihan Optimalisasi ChatGPT dalam Pembuatan Materi Ajar dan Pembelajaran", "Peserta", 10),
+  K("2025-12-23", N, "Webinar “Membangun Kecerdasan Emosional di Tempat Kerja”", "Peserta", 3, "", "Penyelenggara: PPSDM Ketenagakerjaan"),
+  K("2025-12-09", N, "Webinar “AI-nya Jalan, Datanya Aman: Yuk, Kenali Cara Pakai yang Aman”", "Peserta", 2, "", "Penyelenggara: PPSDM Ketenagakerjaan"),
+  K("2025-06-23", P, "Pelatihan Core Values ASN BerAKHLAK", "Peserta", 7, "", "Penyelenggara: LAN RI"),
+  K("2025-10-30", P, "Workshop “Pembuatan Konten Pembelajaran Berbasis Artificial Intelligence”", "Peserta", 8, "", "Penyelenggara: LAN RI bekerja sama dengan Tanoto Foundation"),
+  K("2025-10-28", N, "Webinar “Pengenalan Pemanfaatan Artificial Intelligence untuk Pembuatan Konten Pembelajaran”", "Peserta", 4, "", "Penyelenggara: LAN RI bekerja sama dengan Qubisa"),
+  K("2025-09-04", N, "Sharing Session “Public Speaking for ASN: Optimalisasi Keterampilan Berbicara bagi Aparatur Sipil Negara”", "Peserta", 3, "", "Penyelenggara: PPSDM BKN")
 ];
 
 /* ================= AKHIR BAGIAN EDIT ================= */
